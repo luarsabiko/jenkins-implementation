@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Smoke" verbose="1">
+    <parameter name="productName" value="Sauce Labs Backpack"/>
+    <parameter name="productName2" value="Sauce Labs Bike Light"/>
+    <test name="CheckoutFlow">
+        <classes>
+            <class name="com.epam.ta.test.CheckoutTests"/>
+        </classes>
+    </test>
+</suite>
