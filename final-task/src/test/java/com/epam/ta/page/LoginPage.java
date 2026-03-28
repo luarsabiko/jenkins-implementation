@@ -8,10 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.epam.ta.model.User;
 
 import io.qameta.allure.Step;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 public class LoginPage extends AbstractPage {
-	private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
 
 	private final String BASE_URL = "https://www.saucedemo.com/";
 
@@ -32,13 +29,11 @@ public class LoginPage extends AbstractPage {
 	@Override
 	@Step("Navigating to login page")
 	public LoginPage openPage() {
-		log.info("Navigating to login page: {}", BASE_URL);
 		driver.navigate().to(BASE_URL);
 		return this;
 	}
 	@Step("Logging in as {user}")
 	public InventoryPage login(User user) {
-		log.info("Logging in as user: {}", user.getUsername());
 		inputUsername.sendKeys(user.getUsername());
 		inputPassword.sendKeys(user.getPassword());
 		buttonLogin.click();
