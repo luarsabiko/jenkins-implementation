@@ -11,14 +11,6 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'master',
-                    credentialsId: 'github-credentials',
-                    url: 'https://github.com/luarsabiko/jenkins-implementation'
-            }
-        }
-
         stage('Clean') {
             steps {
                 dir('final-task') {
