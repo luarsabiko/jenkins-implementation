@@ -24,7 +24,6 @@
 
 	<dependencies>
 
-		<!-- Selenium 4 -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>

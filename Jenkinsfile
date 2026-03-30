@@ -69,7 +69,7 @@ pipeline {
 
     post {
         failure {
-            echo 'Tests failed — check Allure report for screenshots'
+            echo 'Tests failed'
         }
     }
 }

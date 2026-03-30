@@ -6,15 +6,15 @@ End-to-end test automation framework for [saucedemo.com](https://www.saucedemo.c
 
 ## Tech Stack
 
-| Tool | Purpose |
-|------|---------|
-| Java 17 | Language |
+| Tool                      | Purpose |
+|---------------------------|---------|
+| Java 17                   | Language |
 | Selenium WebDriver 4.41.0 | Browser automation |
-| TestNG 7.9.0 | Test runner |
-| Cucumber 7.15.0 | BDD framework |
-| Hamcrest 2.2 | Assertions |
-| Allure 2.24.0 | Test reporting |
-| Maven | Build tool |
+| Cucumber 7.15.0           | BDD framework |
+| JUnit 5 (JUnit Platform)  | Test runner |
+| Allure 2.24.0             | Test reporting |
+| Maven                     | Build tool |
+| Jenkins                   | CI/CD & parallel execution |
 
 ---
 
@@ -71,8 +71,7 @@ src/test/resources/
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd final-task
+git clone https://github.com/luarsabiko/jenkins-implementation
 ```
 
 ### 2. Install Allure CLI
@@ -95,7 +94,10 @@ allure --version
 ---
 
 ## Running Tests
-
+#### Make Sure You Are in final-task Directory For Both tests and reports
+```bash
+cd Final-task
+```
 ### Run on Chrome (default)
 ```bash
 mvn -Dbrowser=chrome -Denvironment=dev clean test
@@ -105,6 +107,12 @@ mvn -Dbrowser=chrome -Denvironment=dev clean test
 ```bash
 mvn -Dbrowser=firefox -Denvironment=dev clean test
 ```
+
+### Headless execution is supported via system property
+```bash
+mvn -Dbrowser=chrome -Denvironment=dev -Dheadless=true clean test
+```
+
 
 ---
 
@@ -154,26 +162,13 @@ Cucumber passes the quoted string values directly to the step definitions at run
 
 ### Environment properties (`src/test/resources/dev.properties`)
 
-```properties
+```properties 
 user.login=standard_user
 user.password=secret_sauce
 checkout.firstname=Saba
 checkout.lastname=Beridze
 checkout.zipcode=12345
 ```
-
-### Test suite (`src/test/resources/testng-suit.xml`)
-
-```xml
-<suite name="suit" verbose="1">
-    <test name="CucumberBDD">
-        <classes>
-            <class name="com.epam.ta.runner.CucumberRunner"/>
-        </classes>
-    </test>
-</suite>
-```
-
 ---
 
 ## Allure Report
@@ -205,6 +200,73 @@ Once the report opens in your browser:
 
 ---
 
+This project includes a **Jenkins pipeline** that:
+
+* Runs tests in parallel on Chrome, Firefox
+* Generates Allure reports
+
+
+---
+
+How to Run in Jenkins
+
+### 1. Create Pipeline Job
+
+* Type: **Pipeline**
+* Use SCM → point to your repository
+
+---
+
+### 2. Configure Tools and plugins
+
+In **Manage Jenkins → Tools**:
+
+* JDK 
+* Maven
+
+These names must match the Jenkinsfile:
+
+```groovy
+tools {
+    maven 'Maven'
+    jdk 'JDK17'
+}
+```
+In **Manage Jenkins → Plugins**:
+
+* Allure Jenkins Plugin
+
+
+---
+
+### 3. First Run
+
+If you don’t see **“Build with Parameters”**:
+
+* Run the job **once**
+
+After first run:
+
+* Jenkins detects parameters automatically
+* “Build with Parameters” will appear
+
+---
+
+### 4. To Run Pipeline Use
+
+```
+ENVIRONMENT = dev
+```
+
+---
+
+##  Parallel Execution
+
+Parallelism can be observed via Allure report.
+Go to the generated Allure report and checkout the timeline tab.
+you will see parallel execution of two browsers.
+
+---
 ## Author
 
 Saba Beridze
