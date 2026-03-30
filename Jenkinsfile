@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
+                git branch: 'master',
                     credentialsId: 'github-credentials',
                     url: 'https://github.com/luarsabiko/jenkins-implementation'
             }
