@@ -6,39 +6,46 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import java.util.Map;
+
 public class DriverSingleton {
 
-    private static WebDriver driver;
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     private DriverSingleton() {}
 
     public static WebDriver getDriver() {
-        if (null == driver) {
-            switch (System.getProperty("browser")) {
-                case "firefox": {
-                    FirefoxOptions options = new FirefoxOptions();
-                    driver = new FirefoxDriver(options);
-                    break;
+        if (driver.get() == null) {
+            String browser = System.getProperty("browser", "chrome");
+
+            switch (browser) {
+                case "firefox" -> {
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    driver.set(new FirefoxDriver(firefoxOptions));
                 }
-                default: {
-                    ChromeOptions options = new ChromeOptions();
-                    options.addArguments("--disable-save-password-bubble");
-                    options.setExperimentalOption("prefs", java.util.Map.of(
+                default -> {
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.addArguments("--disable-save-password-bubble");
+                    chromeOptions.setExperimentalOption("prefs", Map.of(
                             "profile.password_manager_leak_detection", false
                     ));
-                    driver = new ChromeDriver(options);
-                    break;
+
+                    // Recommended for Jenkins/CI environments to avoid permission issues
+//                    chromeOptions.addArguments("--no-sandbox");
+//                    chromeOptions.addArguments("--disable-dev-shm-usage");
+
+                    driver.set(new ChromeDriver(chromeOptions));
                 }
             }
-            driver.manage().window().maximize();
+            driver.get().manage().window().maximize();
         }
-        return driver;
+        return driver.get();
     }
 
     public static void closeDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();
         }
     }
 }
