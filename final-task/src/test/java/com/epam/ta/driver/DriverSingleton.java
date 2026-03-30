@@ -17,10 +17,14 @@ public class DriverSingleton {
     public static WebDriver getDriver() {
         if (driver.get() == null) {
             String browser = System.getProperty("browser", "chrome");
+            boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
 
             switch (browser) {
                 case "firefox" -> {
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    if (headless) {
+                        firefoxOptions.addArguments("--headless");
+                    }
                     driver.set(new FirefoxDriver(firefoxOptions));
                 }
                 default -> {
@@ -29,11 +33,11 @@ public class DriverSingleton {
                     chromeOptions.setExperimentalOption("prefs", Map.of(
                             "profile.password_manager_leak_detection", false
                     ));
-
-                    // Recommended for Jenkins/CI environments to avoid permission issues
-//                    chromeOptions.addArguments("--no-sandbox");
-//                    chromeOptions.addArguments("--disable-dev-shm-usage");
-
+                    if (headless) {
+                        chromeOptions.addArguments("--headless=new");
+                        chromeOptions.addArguments("--no-sandbox");
+                        chromeOptions.addArguments("--disable-dev-shm-usage");
+                    }
                     driver.set(new ChromeDriver(chromeOptions));
                 }
             }
