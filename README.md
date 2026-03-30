@@ -50,7 +50,7 @@ src/test/java/com/epam/ta/
 
 src/test/resources/
 ├── dev.properties                 # Test data for dev environment
-├── testng-smoke.xml               # Test suite configuration
+├── testng-suite.xml               # Test suite configuration
 └── features/
     └── checkout-flow.feature      # BDD feature file
 ```
@@ -162,10 +162,10 @@ checkout.lastname=Beridze
 checkout.zipcode=12345
 ```
 
-### Test suite (`src/test/resources/testng-smoke.xml`)
+### Test suite (`src/test/resources/testng-suit.xml`)
 
 ```xml
-<suite name="Smoke" verbose="1">
+<suite name="suit" verbose="1">
     <test name="CucumberBDD">
         <classes>
             <class name="com.epam.ta.runner.CucumberRunner"/>
