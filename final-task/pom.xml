@@ -14,11 +14,9 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<suiteXmlFile>src/test/resources/testng-suite.xml</suiteXmlFile>
 
 		<!-- Versions -->
 		<selenium.version>4.41.0</selenium.version>
-		<testng.version>7.9.0</testng.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<allure.version>2.24.0</allure.version>
 		<aspectj.version>1.9.20</aspectj.version>
@@ -33,24 +31,10 @@
 			<version>${selenium.version}</version>
 		</dependency>
 
-		<!-- TestNG -->
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>${testng.version}</version>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>7.15.0</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-testng</artifactId>
 			<version>7.15.0</version>
 			<scope>test</scope>
 		</dependency>
@@ -77,7 +61,19 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit-platform-engine</artifactId>
+			<version>7.15.0</version>
+			<scope>test</scope>
+		</dependency>
 
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite</artifactId>
+			<version>1.10.2</version>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -91,18 +87,14 @@
 				<version>3.13.0</version>
 			</plugin>
 
-			<!-- Surefire (TestNG runner) -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.2.5</version>
 				<configuration>
-					<suiteXmlFiles>
-						<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
-					</suiteXmlFiles>
-					<argLine>
-						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-					</argLine>
+					<includes>
+						<include>**/*Runner.java</include>
+					</includes>
 					<systemPropertyVariables>
 						<allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
 					</systemPropertyVariables>

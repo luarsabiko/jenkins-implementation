@@ -1,9 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-
-<suite name="suit" verbose="1">
-    <test name="CucumberBDD">
-        <classes>
-            <class name="com.epam.ta.runner.CucumberRunner"/>
-        </classes>
-    </test>
-</suite>
