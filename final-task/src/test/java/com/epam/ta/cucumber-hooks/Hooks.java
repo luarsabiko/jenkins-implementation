@@ -3,22 +3,24 @@ package com.epam.ta.steps;
 import com.epam.ta.driver.DriverSingleton;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-
-import io.qameta.allure.AllureLifecycle;
+import io.cucumber.java.Scenario;
 import io.qameta.allure.Allure;
 
-@Before
-public void setUp() {
+public class Hooks {
+
+    @Before
+    public void setUp(Scenario scenario) {
         String browser = System.getProperty("browser", "unknown");
+        String environment = System.getProperty("environment", "unknown");
 
-        Allure.label("browser", browser);
+        // Visible in Allure
+        Allure.parameter("browser", browser);
+        Allure.parameter("environment", environment);
 
-        Allure.getLifecycle().updateTestCase(testCase ->
-        testCase.setName(testCase.getName() + " [" + browser + "]")
-        );
+        scenario.log("Running on: " + browser);
 
         DriverSingleton.getDriver();
-        }
+    }
 
     @After
     public void tearDown() {
