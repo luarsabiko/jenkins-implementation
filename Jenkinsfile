@@ -22,7 +22,7 @@ pipeline {
         stage('Clean') {
             steps {
                 dir('final-task') {
-                    sh 'mvn clean'
+                    bat 'mvn clean'
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
                 stage('Chrome') {
                     steps {
                         dir('final-task') {
-                            sh 'mvn test -Dbrowser=chrome -Denvironment=${ENVIRONMENT} -Dheadless=true'
+                            bat 'mvn test -Dbrowser=chrome -Denvironment=${ENVIRONMENT} -Dheadless=true'
                         }
                     }
                     post {
@@ -44,7 +44,7 @@ pipeline {
                 stage('Firefox') {
                     steps {
                         dir('final-task') {
-                            sh 'mvn test -Dbrowser=firefox -Denvironment=${ENVIRONMENT} -Dheadless=true'
+                            bat 'mvn test -Dbrowser=firefox -Denvironment=${ENVIRONMENT} -Dheadless=true'
                         }
                     }
                     post {
