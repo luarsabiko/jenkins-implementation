@@ -21,38 +21,43 @@ End-to-end test automation framework for [saucedemo.com](https://www.saucedemo.c
 ## Project Structure
 
 ```
-src/test/java/com/epam/ta/
-├── cucumber-hooks/
-│   └── Hooks.java                 # Before/After scenario hooks
-├── driver/
-│   └── DriverSingleton.java       # WebDriver singleton (Chrome/Firefox)
-├── model/
-│   ├── User.java                  # User domain model
-│   └── CheckoutData.java          # Checkout form data model
-├── page/
-│   ├── AbstractPage.java          # Base page class
-│   ├── LoginPage.java
-│   ├── InventoryPage.java
-│   ├── CartPage.java
-│   ├── CheckoutInfoPage.java
-│   ├── CheckoutOverviewPage.java
-│   └── CheckoutCompletePage.java
-├── runner/
-│   ├── CucumberRunner.java        # Cucumber TestNG runner
-├── service/
-│   ├── TestDataReader.java        # Reads data from .properties files
-│   ├── UserCreator.java           # Creates User instances
-│   └── CheckoutDataCreator.java   # Creates CheckoutData instances
-├── steps/
-│   └── CheckoutSteps.java         # Cucumber step definitions
-└── util/
-    └── StringUtils.java           # String utility methods
-
-src/test/resources/
-├── dev.properties                 # Test data for dev environment
-├── testng-suite.xml               # Test suite configuration
-└── features/
-    └── checkout-flow.feature      # BDD feature file
+.
+├── Jenkinsfile                    # CI/CD pipeline configuration
+└── final-task/
+    ├── pom.xml
+    └── src/
+        └── test/
+            ├── java/com/epam/ta/
+            │   ├── cucumber-hooks/
+            │   │   └── Hooks.java                 # Before/After scenario hooks
+            │   ├── driver/
+            │   │   └── DriverSingleton.java       # WebDriver singleton (Chrome/Firefox)
+            │   ├── model/
+            │   │   ├── User.java                  # User domain model
+            │   │   └── CheckoutData.java          # Checkout form data model
+            │   ├── page/
+            │   │   ├── AbstractPage.java          # Base page class
+            │   │   ├── LoginPage.java
+            │   │   ├── InventoryPage.java
+            │   │   ├── CartPage.java
+            │   │   ├── CheckoutInfoPage.java
+            │   │   ├── CheckoutOverviewPage.java
+            │   │   └── CheckoutCompletePage.java
+            │   ├── runner/
+            │   │   └── CucumberRunner.java        # Cucumber runner
+            │   ├── service/
+            │   │   ├── TestDataReader.java        # Reads data from .properties files
+            │   │   ├── UserCreator.java           # Creates User instances
+            │   │   └── CheckoutDataCreator.java   # Creates CheckoutData instances
+            │   ├── steps/
+            │   │   └── CheckoutSteps.java         # Cucumber step definitions
+            │   └── util/
+            │       └── StringUtils.java           # String utility methods
+            └── resources/
+                ├── dev.properties                 # Test data for dev environment
+                ├── junit-platform.properties      # JUnit platform configuration
+                └── features/
+                    └── checkout-flow.feature      # BDD feature file
 ```
 
 ---
