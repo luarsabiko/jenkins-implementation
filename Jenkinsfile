@@ -59,7 +59,7 @@ pipeline {
         stage('Allure Report') {
             steps {
                 allure([
-                    includeProperties: false,
+                    includeProperties: true,
                     reportBuildPolicy: 'ALWAYS',
                     results: [[path: 'final-task/target/allure-results']]
                 ])
