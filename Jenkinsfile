@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'new-test-branch',
+                git branch: 'feature/new-test-branch',
                     credentialsId: 'github-credentials',
                     url: 'https://github.com/luarsabiko/jenkins-implementation'
             }
